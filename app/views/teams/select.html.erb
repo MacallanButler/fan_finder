@@ -1,0 +1,6 @@
+<h1>Pick Your Team</h1>
+
+<%= form_with url: teams_update_path, method: :patch do |f| %>
+  <%= f.collection_radio_buttons :team_id, @teams, :id, :name %>
+  <%= f.submit "Save Team" %>
+<% end %>

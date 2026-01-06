@@ -1,0 +1,27 @@
+<h1>Find Your Team Bars</h1>
+
+<% if current_user.team %>
+  <p>Your team: <%= current_user.team.name %></p>
+<% end %>
+
+<%= form_with url: bars_path, method: :get do |f| %>
+  <%= f.text_field :city, placeholder: "Enter city" %>
+  <%= f.submit "Find Bars" %>
+<% end %>
+
+<% if @bars %>
+  <h2>Bars in <%= @city %></h2>
+  
+  <% if @bars.any? %>
+    <ul>
+      <% @bars.each do |bar| %>
+        <li>
+          <strong><%= bar.name %></strong><br>
+          <%= bar.address %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No bars found for <%= current_user.team.name %> in <%= @city %></p>
+  <% end %>
+<% end %>
