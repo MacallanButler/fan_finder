@@ -3,11 +3,11 @@ Rails.application.routes.draw do
 
   root 'bars#index'
   get 'teams/select', to: 'teams#select'
-  patch'teams/update', to: 'teams#update'
-  resources :bars only: [:index]
+  patch 'teams/update', to: 'teams#update'
+  resources :bars, only: [:index, :new, :create]
 
 
-  
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

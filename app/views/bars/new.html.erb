@@ -1,0 +1,29 @@
+<%= link_to "Submit a Bar", new_bar_path %>
+
+<h1>Submit a Bar</h1>
+
+<%= form_with model: @bar do |f| %>
+  <div>
+    <%= f.label :name, "Bar Name" %>
+    <%= f.text_field :name, required: true %>
+  </div>
+  
+  <div>
+    <%= f.label :address %>
+    <%= f.text_field :address, required: true %>
+  </div>
+  
+  <div>
+    <%= f.label :city %>
+    <%= f.text_field :city, required: true %>
+  </div>
+  
+  <div>
+    <label>Which teams go here?</label>
+    <%= collection_check_boxes(nil, :team_ids, @teams, :id, :name) %>
+  </div>
+  
+  <%= f.submit "Submit Bar" %>
+<% end %>
+
+<%= link_to "Back to Search", root_path %>

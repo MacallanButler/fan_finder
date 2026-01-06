@@ -7,12 +7,41 @@ class BarsController < ApplicationController
       return
     end
     
-    # Get city user
     @city = params[:city]
     
     if @city.present?
-      # Find bars in that city that support user's team
       @bars = current_user.team.bars.where(city: @city)
     end
+  end
+  
+  # Show form to submit a bar
+  def new
+    @bar = Bar.new
+    @teams = Team.all
+  end
+  
+  # Create the bar
+  def create
+    @bar = Bar.new(bar_params)
+    
+    if @bar.save
+      # Associate bar with selected teams
+      if params[:team_ids].present?
+        params[:team_ids].each do |team_id|
+          BarTeam.create(bar: @bar, team_id: team_id) if team_id.present?
+        end
+      end
+      
+      redirect_to root_path, notice: "Bar submitted successfully!"
+    else
+      @teams = Team.all
+      render :new
+    end
+  end
+  
+  private
+  
+  def bar_params
+    params.require(:bar).permit(:name, :address, :city)
   end
 end
