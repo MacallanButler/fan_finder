@@ -1,13 +1,19 @@
-<div class="max-w-2xl mx-auto px-4 py-8">
+<div class="max-w-4xl mx-auto px-4 py-8">
   <h1 class="text-3xl font-bold text-gray-900 mb-6">Pick Your Team</h1>
 
   <%= form_with url: teams_update_path, method: :patch do |f| %>
     <div class="bg-white shadow rounded-lg p-6 mb-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
         <%= f.collection_radio_buttons :team_id, @teams, :id, :name do |b| %>
-          <label class="flex items-center p-3 border border-gray-300 rounded hover:bg-gray-50 cursor-pointer">
+          <% team = @teams.find { |t| t.id == b.value } %>
+          <label class="flex items-center p-3 border-2 rounded hover:bg-gray-50 cursor-pointer transition" 
+                 style="border-color: <%= team.primary_color %>30;">
             <%= b.radio_button class: "mr-3" %>
-            <span class="text-gray-900"><%= b.text %></span>
+            <span class="text-gray-900 font-medium"><%= b.text %></span>
+            <span class="ml-auto flex gap-1">
+              <span class="w-4 h-4 rounded-full" style="background-color: <%= team.primary_color %>;"></span>
+              <span class="w-4 h-4 rounded-full" style="background-color: <%= team.secondary_color %>;"></span>
+            </span>
           </label>
         <% end %>
       </div>
