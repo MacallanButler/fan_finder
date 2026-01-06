@@ -1,29 +1,38 @@
-<%= link_to "Submit a Bar", new_bar_path %>
+<div class="max-w-2xl mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-gray-900 mb-6">Submit a Bar</h1>
 
-<h1>Submit a Bar</h1>
+  <%= form_with model: @bar, class: "bg-white shadow rounded-lg p-6" do |f| %>
+    <div class="space-y-4">
+      <div>
+        <%= f.label :name, "Bar Name", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.text_field :name, required: true, class: "w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+      
+      <div>
+        <%= f.label :address, class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.text_field :address, required: true, class: "w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+      
+      <div>
+        <%= f.label :city, class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.text_field :city, required: true, class: "w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Which teams go here?</label>
+        <div class="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto p-3 border border-gray-300 rounded">
+          <%= collection_check_boxes(nil, :team_ids, @teams, :id, :name) do |b| %>
+            <label class="flex items-center">
+              <%= b.check_box class: "mr-2" %>
+              <span class="text-sm text-gray-700"><%= b.text %></span>
+            </label>
+          <% end %>
+        </div>
+      </div>
+      
+      <%= f.submit "Submit Bar", class: "w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 cursor-pointer text-lg font-semibold mt-6" %>
+    </div>
+  <% end %>
 
-<%= form_with model: @bar do |f| %>
-  <div>
-    <%= f.label :name, "Bar Name" %>
-    <%= f.text_field :name, required: true %>
-  </div>
-  
-  <div>
-    <%= f.label :address %>
-    <%= f.text_field :address, required: true %>
-  </div>
-  
-  <div>
-    <%= f.label :city %>
-    <%= f.text_field :city, required: true %>
-  </div>
-  
-  <div>
-    <label>Which teams go here?</label>
-    <%= collection_check_boxes(nil, :team_ids, @teams, :id, :name) %>
-  </div>
-  
-  <%= f.submit "Submit Bar" %>
-<% end %>
-
-<%= link_to "Back to Search", root_path %>
+  <%= link_to "Back to Search", root_path, class: "block text-center text-blue-600 hover:underline mt-4" %>
+</div>

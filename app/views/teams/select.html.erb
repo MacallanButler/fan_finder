@@ -1,6 +1,18 @@
-<h1>Pick Your Team</h1>
+<div class="max-w-2xl mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-gray-900 mb-6">Pick Your Team</h1>
 
-<%= form_with url: teams_update_path, method: :patch do |f| %>
-  <%= f.collection_radio_buttons :team_id, @teams, :id, :name %>
-  <%= f.submit "Save Team" %>
-<% end %>
+  <%= form_with url: teams_update_path, method: :patch do |f| %>
+    <div class="bg-white shadow rounded-lg p-6 mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <%= f.collection_radio_buttons :team_id, @teams, :id, :name do |b| %>
+          <label class="flex items-center p-3 border border-gray-300 rounded hover:bg-gray-50 cursor-pointer">
+            <%= b.radio_button class: "mr-3" %>
+            <span class="text-gray-900"><%= b.text %></span>
+          </label>
+        <% end %>
+      </div>
+    </div>
+    
+    <%= f.submit "Save Team", class: "w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 cursor-pointer text-lg font-semibold" %>
+  <% end %>
+</div>
