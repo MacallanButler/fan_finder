@@ -7,7 +7,11 @@
 <% end %>
 
 <div class="max-w-4xl mx-auto px-4 py-8">
-  <h1 class="text-3xl font-bold text-white mb-8">Find Your Teams Bars</h1>
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold text-white">Find Your Teams Bars</h1>
+    <%= button_to "Logout", destroy_user_session_path, method: :delete, 
+        class: "bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 font-semibold" %>
+  </div>
 
   <% if current_user.team %>
     <div class="border-2 rounded-lg p-4 mb-6" 
@@ -43,7 +47,8 @@
   <% if @bars %>
     <div class="bg-white shadow rounded-lg p-6">
       <h2 class="text-2xl font-semibold mb-4">Bars in <%= @city %></h2>
-      
+      <p class="text-gray-600 mb-4"><%= @bars.count %> <%= 'bar'.pluralize(@bars.count) %> found</p>
+
       <% if @bars.any? %>
         <div class="space-y-4">
           <% @bars.each do |bar| %>

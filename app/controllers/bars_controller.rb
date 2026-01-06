@@ -25,7 +25,6 @@ class BarsController < ApplicationController
     @bar = Bar.new(bar_params)
     
     if @bar.save
-      # Associate bar with selected teams
       if params[:team_ids].present?
         params[:team_ids].each do |team_id|
           BarTeam.create(bar: @bar, team_id: team_id) if team_id.present?
@@ -35,10 +34,11 @@ class BarsController < ApplicationController
       redirect_to root_path, notice: "Bar submitted successfully!"
     else
       @teams = Team.all
-      render :new
+      flash.now[:alert] = @bar.errors.full_messages.join(", ")
+      render :new, status: :unprocessable_entity
     end
   end
-  
+    
   private
   
   def bar_params
